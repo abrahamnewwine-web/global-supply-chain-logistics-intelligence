@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Logistics | Executive Supply Chain Overview</title>
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+  <script src="/static/vendor/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">GL</div>
+        <div>
+          <div class="brand-title">GLOBAL LOGISTICS</div>
+          <div class="brand-sub">Intelligence Dashboard</div>
+        </div>
+      </div>
+
+      <div class="slicer-heading">FILTERS</div>
+      <div class="slicer-group"><label for="fYear">Year</label><select id="fYear"><option value="">All</option>{% for y in options.years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}</select></div>
+      <div class="slicer-group"><label for="fQuarter">Quarter</label><select id="fQuarter"><option value="">All</option>{% for q in options.quarters %}<option value="{{ q }}">Q{{ q }}</option>{% endfor %}</select></div>
+      <div class="slicer-group"><label for="fMonth">Month</label><select id="fMonth"><option value="">All</option>{% for m in options.months %}<option value="{{ m.month_num }}">{{ m.month_name }}</option>{% endfor %}</select></div>
+      <div class="slicer-group"><label for="fOrigin">Origin Port</label><select id="fOrigin"><option value="All">All</option>{% for p in options.origin_ports %}<option value="{{ p }}">{{ p }}</option>{% endfor %}</select></div>
+      <div class="slicer-group"><label for="fMode">Transport Mode</label><select id="fMode"><option value="All">All</option>{% for tm in options.transport_modes %}<option value="{{ tm }}">{{ tm }}</option>{% endfor %}</select></div>
+      <div class="slicer-group"><label for="fCat">Product Category</label><select id="fCat"><option value="All">All</option>{% for c in options.product_categories %}<option value="{{ c }}">{{ c }}</option>{% endfor %}</select></div>
+      <div class="slicer-group"><label for="fWeather">Weather Condition</label><select id="fWeather"><option value="All">All</option>{% for w in options.weather_conditions %}<option value="{{ w }}">{{ w }}</option>{% endfor %}</select></div>
+
+      <div class="sidebar-actions">
+        <button id="btnReset" class="btn-sec">Reset Filters</button>
+        <button id="btnExport" class="btn-pri">Export Routes CSV</button>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="hero-header">
+        <div>
+          <h1>EXECUTIVE SUPPLY CHAIN OVERVIEW</h1>
+          <p>Integrated insights into global shipments, disruptions, lead times, and corridor risk intelligence</p>
+        </div>
+        <div class="scope-tag" id="scopeTag">Scope: All Shipments (2024–2025)</div>
+      </header>
+
+      <section class="insights-row">
+        <div class="insight-card ins-blue">
+          <div class="ins-title">SHIPMENT MOMENTUM</div>
+          <div class="ins-body" id="insMomentum">Tracking global multi-modal cargo flows...</div>
+        </div>
+        <div class="insight-card ins-red">
+          <div class="ins-title">DISRUPTION ALERT</div>
+          <div class="ins-body" id="insDisruption">Monitoring severe weather and corridor volatility...</div>
+        </div>
+        <div class="insight-card ins-green">
+          <div class="ins-title">CARRIER PERFORMANCE</div>
+          <div class="ins-body" id="insPerformance">Evaluating on-time delivery and carrier compliance...</div>
+        </div>
+        <div class="insight-card ins-gold">
+          <div class="ins-title">RISK OUTLOOK</div>
+          <div class="ins-body" id="insRisk">Prioritizing elevated risk corridors and lead-time outliers...</div>
+        </div>
+      </section>
+
+      <section class="kpi-strip">
+        <div class="kpi-tile tile-blue"><div class="t-lbl">TOTAL SHIPMENTS</div><div class="t-val" id="kTotal">--</div><div class="t-sub" id="kVolMom">--</div></div>
+        <div class="kpi-tile tile-red"><div class="t-lbl">DISRUPTION RATE</div><div class="t-val" id="kDisrupt">--</div><div class="t-sub" id="kDisMom">--</div></div>
+        <div class="kpi-tile tile-green"><div class="t-lbl">SUCCESS RATE</div><div class="t-val" id="kSuccess">--</div><div class="t-sub" id="kSuccessCnt">--</div></div>
+        <div class="kpi-tile tile-purple"><div class="t-lbl">AVG LEAD TIME</div><div class="t-val" id="kLead">--</div><div class="t-sub">Days across lanes</div></div>
+        <div class="kpi-tile tile-teal"><div class="t-lbl">CARRIER RELIABILITY</div><div class="t-val" id="kReliable">--</div><div class="t-sub" id="kRelPct">--</div></div>
+        <div class="kpi-tile tile-amber"><div class="t-lbl">AVG RISK INDEX</div><div class="t-val" id="kRiskIdx">--</div><div class="t-sub">Scale 1.0 – 10.0</div></div>
+        <div class="kpi-tile tile-slate"><div class="t-lbl">AVERAGE FUEL PRICE</div><div class="t-val" id="kFuel">--</div><div class="t-sub">USD per gallon</div></div>
+      </section>
+
+      <section class="grid-2">
+        <div class="panel"><div class="p-title">SHIPMENT VOLUME TREND</div><div class="c-box"><canvas id="cVolTrend"></canvas></div></div>
+        <div class="panel"><div class="p-title">SHIPMENT DISRUPTION TREND (%)</div><div class="c-box"><canvas id="cDisTrend"></canvas></div></div>
+      </section>
+
+      <section class="grid-4">
+        <div class="panel"><div class="p-title">VOLUME BY TRANSPORT MODE</div><div class="c-box-sm"><canvas id="cMode"></canvas></div></div>
+        <div class="panel"><div class="p-title">VOLUME BY PRODUCT CATEGORY</div><div class="c-box-sm"><canvas id="cCategory"></canvas></div></div>
+        <div class="panel"><div class="p-title">DISRUPTION BY WEATHER CONDITION</div><div class="c-box-sm"><canvas id="cWeather"></canvas></div></div>
+        <div class="panel"><div class="p-title">TOTAL SHIPMENTS BY REGION</div><div class="c-box-sm"><canvas id="cRegion"></canvas></div></div>
+      </section>
+
+      <section class="grid-bottom">
+        <div class="panel table-panel">
+          <div class="p-title">TOP HIGH RISK ROUTES</div>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th>Route</th><th>Shipments</th><th>Risk Index</th><th>Avg Lead Time</th><th>Disruption %</th></tr></thead>
+              <tbody id="routesBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel critical-panel">
+          <div class="p-title">MOST CRITICAL ROUTE</div>
+          <div class="crit-route" id="critRouteName">--</div>
+          <div class="crit-metrics">
+            <div><span class="cm-val text-red" id="critRisk">--</span><span class="cm-lbl">Risk Index</span></div>
+            <div><span class="cm-val text-purple" id="critDisrupt">--</span><span class="cm-lbl">Disruption Rate</span></div>
+            <div><span class="cm-val text-gold" id="critLead">--</span><span class="cm-lbl">Avg Lead Time (Days)</span></div>
+          </div>
+          <div class="crit-foot" id="critRegionNote">Corridor risk prioritization hotspot</div>
+        </div>
+
+        <div class="panel gauge-panel">
+          <div class="p-title">HIGH RISK SHIPMENT RATE</div>
+          <div class="gauge-box">
+            <canvas id="cHighRiskGauge"></canvas>
+            <div class="gauge-num" id="kHighRiskPct">--</div>
+          </div>
+          <div class="gauge-foot"><span>0%</span><span id="kHighRiskCnt">-- high-risk shipments</span><span>100%</span></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
