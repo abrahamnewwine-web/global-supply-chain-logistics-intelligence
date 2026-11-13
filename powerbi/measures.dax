@@ -1,0 +1,13 @@
+// Global Supply Chain & Logistics Intelligence - DAX Measure Library
+
+Total Shipments = COUNTROWS(fact_shipments)
+Disrupted Shipments = SUM(fact_shipments[disrupted_flag])
+Disruption Rate % = DIVIDE([Disrupted Shipments], [Total Shipments], 0)
+Success Rate % = 1 - [Disruption Rate %]
+Avg Lead Time (Days) = AVERAGE(fact_shipments[lead_time_days])
+Reliable Shipments = SUM(fact_shipments[carrier_reliable_flag])
+Carrier Reliability % = DIVIDE([Reliable Shipments], [Total Shipments], 0)
+Avg Risk Index = AVERAGE(fact_shipments[risk_index])
+High Risk Shipments = SUM(fact_shipments[high_risk_flag])
+High-Risk Shipment Rate % = DIVIDE([High Risk Shipments], [Total Shipments], 0)
+Average Fuel Price = AVERAGE(fact_shipments[fuel_price_usd])

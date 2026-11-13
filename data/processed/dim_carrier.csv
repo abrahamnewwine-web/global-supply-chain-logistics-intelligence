@@ -1,0 +1,9 @@
+carrier_id,carrier_name,transport_mode
+1,SkyFreight Global,Air
+2,AeroCargo Express,Air
+3,Oceanic Maersk Line,Sea
+4,Pacific Container Corp,Sea
+5,EuroHaul Logistics,Road
+6,TransContinental Trucking,Road
+7,Eurasia Rail Freight,Rail
+8,NorthStar Intermodal,Rail

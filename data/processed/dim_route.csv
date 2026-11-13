@@ -1,0 +1,23 @@
+route_id,route_name,origin_port,destination_port,region,distance_km
+1,Rotterdam → Marseille,Rotterdam,Marseille,Europe,1250
+2,Antwerp → Busan,Antwerp,Busan,Asia,18400
+3,Antwerp → Dubai,Antwerp,Dubai,Asia,11200
+4,Antwerp → Hamburg,Antwerp,Hamburg,Europe,520
+5,Antwerp → Los Angeles,Antwerp,Los Angeles,North America,14800
+6,Shanghai → Rotterdam,Shanghai,Rotterdam,Asia,19500
+7,Singapore → Hamburg,Singapore,Hamburg,Asia,15900
+8,Busan → Los Angeles,Busan,Los Angeles,Asia,9650
+9,Shanghai → Singapore,Shanghai,Singapore,Asia,4100
+10,Singapore → Dubai,Singapore,Dubai,Asia,6500
+11,Dubai → Rotterdam,Dubai,Rotterdam,Asia,11400
+12,Busan → Shanghai,Busan,Shanghai,Asia,850
+13,Rotterdam → Hamburg,Rotterdam,Hamburg,Europe,490
+14,Hamburg → Marseille,Hamburg,Marseille,Europe,1320
+15,Rotterdam → Antwerp,Rotterdam,Antwerp,Europe,120
+16,Marseille → Antwerp,Marseille,Antwerp,Europe,1020
+17,Hamburg → Antwerp,Hamburg,Antwerp,Europe,520
+18,Marseille → Rotterdam,Marseille,Rotterdam,Europe,1250
+19,Los Angeles → Rotterdam,Los Angeles,Rotterdam,North America,14800
+20,Los Angeles → Shanghai,Los Angeles,Shanghai,North America,10500
+21,Dubai → Durban,Dubai,Durban,Other,7100
+22,Marseille → Santos,Marseille,Santos,Other,9500

@@ -1,0 +1,6 @@
+category_id,category_name,temp_sensitive
+1,Electronics,0
+2,Textiles,0
+3,Perishables,1
+4,Pharmaceuticals,1
+5,Automotive,0

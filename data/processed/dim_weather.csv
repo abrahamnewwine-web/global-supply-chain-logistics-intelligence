@@ -1,0 +1,6 @@
+weather_id,weather_condition,severity_tier
+1,Hurricane,5
+2,Storm,4
+3,Fog,3
+4,Rain,2
+5,Clear,1
